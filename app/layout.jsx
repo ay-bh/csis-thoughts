@@ -1,20 +1,29 @@
 import "@styles/globals.css";
 import Nav from "@components/Nav";
 import Provider from "@components/Provider";
-import { initGA, logPageView } from "../utils/analytics";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from "next/script";
 export const metadata = {
 	title: "Thoughts",
 	description: "Seniors last words bits goa",
 };
 
 const layout = ({ children }) => {
-	useEffect(() => {
-		initGA();
-		logPageView();
-	}, []);
 	return (
 		<html>
+			<Script
+				src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS_ID}`}
+			/>
+			<Script id="google-analytics">
+				{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', '${process.env.GOOGLE_ANALYTICS_ID}');
+        `}
+			</Script>
+
 			<body>
 				<Provider>
 					<div className="main">
@@ -25,6 +34,7 @@ const layout = ({ children }) => {
 						{children}
 					</main>
 				</Provider>
+				<SpeedInsights />
 			</body>
 		</html>
 	);
