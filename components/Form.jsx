@@ -6,7 +6,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
       <h1 className='head_text text-left'>
       {type} <span className='blue_gradient'>Message</span>
       </h1>
-      <p className='desc text-left max-w-md'>
+      <p className='mt-5 text-sm text-gray-400 md:text-lg max-w-2xl text-left max-w-xl'>
         Share your amazing journey and learning with your juniors. Let your fond memories take over and make you feel nostalgic. You can write a few short messages or one long one, whichever you prefer. This will be incredibly helpful for your juniors. You can decide to answer questions like, "What will you miss the most about college?" and "Now that you look back on everything, what would you change and why?" Just reminisce about all the good times, the friends you've made, the people you've met, and the places you've been to, and share all of that here.
       </p>
 
