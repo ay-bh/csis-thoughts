@@ -14,7 +14,6 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 	const [disabledLikes, setDisabledLikes] = useState({});
 
 	const handleProfileClick = () => {
-		console.log(post);
 
 		if (post.creator._id === session?.user.id) return router.push("/profile");
 
@@ -30,7 +29,7 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 
 	const handleLocalLike = async (postId) => {
 		if (disabledLikes[postId]) return;
-    if (pathName.includes("/profile")) return;
+		if (pathName.includes("/profile")) return;
 
 		setDisabledLikes({ ...disabledLikes, [postId]: true });
 		await handleLike(postId);
@@ -68,6 +67,12 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 
 		const formattedDate = `${hours}:${minutes} - ${day} ${month} ${year}`;
 		return formattedDate;
+	};
+
+	const [isReadMore, setIsReadMore] = useState(true);
+
+	const toggleReadMore = () => {
+		setIsReadMore(!isReadMore);
 	};
 
 	return (
@@ -131,8 +136,22 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 					)}
 				</div>
 			</div>
-
-			<p className="my-4 font-satoshi text-sm text-gray-200">{post.post}</p>
+			<div>
+				<p className="my-4 font-satoshi text-sm text-gray-200">
+					{isReadMore ? post.post.slice(0, 600) : post.post}
+          {isReadMore && post.post.length>600?<span>...</span>:""}
+          
+				</p>
+				{post.post.length > 600 && (<>
+					<button
+						onClick={toggleReadMore}
+						className="text-blue-300 text-sm hover:text-blue-400 transition duration-300"
+					>
+						{isReadMore ? "Read More" : "Read Less"}
+					</button>
+          </>
+				)}
+			</div>
 			<div className="flex justify-between items-center my-4 text-xs text-gray-400">
 				<p>{formatDate(post?.createdAt)}</p>
 
