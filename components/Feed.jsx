@@ -6,9 +6,10 @@ import { unstable_noStore as noStore } from 'next/cache';
 import PostCard from "./PostCard";
 
 const PostCardList = ({ data, handleLike }) => {
+  const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   return (
     <div className='mt-16 post_layout'>
-      {data.map((post) => (
+      {sortedData.map((post) => (
         <PostCard
           key={post._id}
           post={post}
