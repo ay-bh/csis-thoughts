@@ -3,9 +3,13 @@ import Nav from "@components/Nav";
 import Provider from "@components/Provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
+
 export const metadata = {
 	title: "Thoughts",
-	description: "Seniors last words bits goa",
+	description: "A memory wall for graduating seniors",
+	icons:{
+		icon:'/public/favicon.ico'
+	  }
 };
 
 const layout = ({ children }) => {
