@@ -14,14 +14,14 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 	const [disabledLikes, setDisabledLikes] = useState({});
 
 	const handleProfileClick = () => {
-
+		if(post.anon) return;
 		if (post.creator._id === session?.user.id) return router.push("/profile");
 
 		router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
 	};
 
 	const handleCopy = () => {
-		const contentToCopy = `${post.post}\n\nBy ${post.creator?.username}`;
+		const contentToCopy = `${post.post}\n\nBy ${(post.anon)?"Anonymous":(post.creator?.username)}`;
 		setCopied(contentToCopy);
 		navigator.clipboard.writeText(contentToCopy);
 		setTimeout(() => setCopied(false), 3000);
@@ -82,26 +82,26 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 					className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
 					onClick={handleProfileClick}
 				>
-					<Image
+					{(post.anon)?"":<Image
 						src={post.creator?.image}
 						alt="user_image"
 						width={40}
 						height={40}
 						className="rounded-full object-contain"
-					/>
+					/>}
 
 					<div className="flex flex-col">
 						<h3 className="font-satoshi text-sm font-semibold text-gray-300">
-							{post.creator?.username}
+							{(post.anon)?"Anonymous":post.creator?.username}
 						</h3>
 						<p className="font-inter text-[0.65rem] text-gray-400">
-							{post.creator?.email}
+							{(post.anon)?"Senior":post.creator?.email}
 						</p>
 					</div>
 				</div>
 
 				<div className="copy_btn" onClick={handleCopy}>
-					{copied === `${post.post}\n\nBy ${post.creator?.username}` ? (
+					{copied === `${post.post}\n\nBy ${(post.anon)?"Anonymous":(post.creator?.username)}` ? (
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"

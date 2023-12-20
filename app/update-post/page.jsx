@@ -10,7 +10,7 @@ const UpdatePost = () => {
   const searchParams = useSearchParams();
   const postId = searchParams.get("id");
 
-  const [post, setPost] = useState({ post: ""});
+  const [post, setPost] = useState({ post: "",anon:false});
   const [submitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -20,6 +20,7 @@ const UpdatePost = () => {
 
       setPost({
         post: data.post,
+        anon:data.anon
       });
     };
 
@@ -37,7 +38,8 @@ const UpdatePost = () => {
         method: "PATCH",
         body: JSON.stringify({
           post: post.post,
-          updateType:'content'
+          updateType:'content',
+          anon:post.anon
         }),
       });
 

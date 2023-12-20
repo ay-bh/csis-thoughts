@@ -16,6 +16,10 @@ const PostSchema = new Schema({
   likes: {
     type: Number,
     default: 0, 
+  },
+  anon:{
+    type:Boolean,
+    default:false
   }
 });
 

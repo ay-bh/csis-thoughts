@@ -26,7 +26,7 @@ export const GET = async (request, { params }) => {
 export const PATCH = async (request, { params }) => {
     const session = await getServerSession(nextAuthHandler);
 
-    const { post,updateType } = await request.json();
+    const { post,updateType,anon } = await request.json();
 
     try {
         await connectToDB();
@@ -42,6 +42,7 @@ export const PATCH = async (request, { params }) => {
                 return new Response("Unauthorized", { status: 401 });
             }
             existingPost.post = post;
+            existingPost.anon = anon;
         } else {
             return new Response("Invalid update type", { status: 400 });
         }

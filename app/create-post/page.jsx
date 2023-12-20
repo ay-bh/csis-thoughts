@@ -11,7 +11,7 @@ const CreatePost = () => {
   const { data: session } = useSession();
 
   const [submitting, setIsSubmitting] = useState(false);
-  const [post, setPost] = useState({ post: ""});
+  const [post, setPost] = useState({ post: "",anon:false});
 
   const createPost = async (e) => {
     e.preventDefault();
@@ -23,6 +23,7 @@ const CreatePost = () => {
         body: JSON.stringify({
           post: post.post,
           userId: session?.user.id,
+          anon:post.anon
         }),
       });
 

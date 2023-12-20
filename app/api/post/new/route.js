@@ -4,7 +4,7 @@ import { handler as nextAuthHandler } from "./../../auth/[...nextauth]/route"
 import { getServerSession } from "next-auth/next";
 
 export const POST = async (request) => {
-    const { userId, post} = await request.json();
+    const { userId, post,anon} = await request.json();
 
     try {
         const session = await getServerSession(nextAuthHandler);
@@ -14,7 +14,7 @@ export const POST = async (request) => {
         }
 
         await connectToDB();
-        const newPost = new Post({ creator: userId, post, createdAt: new Date() });
+        const newPost = new Post({ creator: userId, post, createdAt: new Date(), anon:anon });
 
         await newPost.save();
         return new Response(JSON.stringify(newPost), { status: 201 })
