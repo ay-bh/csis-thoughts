@@ -21,7 +21,7 @@ const PostCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 	};
 
 	const handleCopy = () => {
-		const contentToCopy = `${post.post}\n\nBy ${post.creator.username}`;
+		const contentToCopy = `${post.post}\n\nBy ${post.creator?.username}`;
 		setCopied(contentToCopy);
 		navigator.clipboard.writeText(contentToCopy);
 		setTimeout(() => setCopied(false), 3000);
@@ -53,7 +53,7 @@ const PostCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 				</div>
 
 				<div className="copy_btn" onClick={handleCopy}>
-					{copied === `${post.post}\n\nBy ${post.creator.username}` ? (
+					{copied === `${post.post}\n\nBy ${post.creator?.username}` ? (
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
