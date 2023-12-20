@@ -27,6 +27,33 @@ const PostCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 		setTimeout(() => setCopied(false), 3000);
 	};
 
+	const formatDate = (isoTimestamp) => {
+		const dateObj = new Date(isoTimestamp);
+
+		const hours = dateObj.getHours().toString().padStart(2, "0");
+		const minutes = dateObj.getMinutes().toString().padStart(2, "0");
+		const day = dateObj.getDate().toString().padStart(2, "0");
+		const monthNames = [
+			"Jan",
+			"Feb",
+			"Mar",
+			"Apr",
+			"May",
+			"Jun",
+			"Jul",
+			"Aug",
+			"Sep",
+			"Oct",
+			"Nov",
+			"Dec",
+		];
+		const month = monthNames[dateObj.getMonth()];
+		const year = dateObj.getFullYear().toString().slice(-2);
+
+		const formattedDate = `${hours}:${minutes} - ${day} ${month} ${year}`;
+		return formattedDate
+	};
+
 	return (
 		<div className="post_card">
 			<div className="flex justify-between items-start gap-5">
@@ -61,7 +88,7 @@ const PostCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 							strokeWidth={1.5}
 							stroke="currentColor"
 							dataSlot="icon"
-              className="w-4 h-4 text-gray-300"
+							className="w-4 h-4 text-gray-300"
 						>
 							<path
 								strokeLinecap="round"
@@ -77,7 +104,7 @@ const PostCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 							strokeWidth={1.5}
 							stroke="currentColor"
 							dataSlot="icon"
-              className="w-4 h-4 text-gray-300"
+							className="w-4 h-4 text-gray-300"
 						>
 							<path
 								strokeLinecap="round"
@@ -90,6 +117,9 @@ const PostCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 			</div>
 
 			<p className="my-4 font-satoshi text-sm text-gray-200">{post.post}</p>
+			<p className="my-4 content-end text-xs text-gray-400">
+				{formatDate(post?.createdAt)}
+			</p>
 
 			{session?.user.id === post.creator?._id && pathName === "/profile" && (
 				<div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">

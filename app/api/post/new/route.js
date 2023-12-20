@@ -14,7 +14,7 @@ export const POST = async (request) => {
         }
 
         await connectToDB();
-        const newPost = new Post({ creator: userId, post});
+        const newPost = new Post({ creator: userId, post, createdAt: new Date() });
 
         await newPost.save();
         return new Response(JSON.stringify(newPost), { status: 201 })

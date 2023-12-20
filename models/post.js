@@ -9,6 +9,9 @@ const PostSchema = new Schema({
   post: {
     type: String,
     required: [true, 'Post is required.'],
+  },
+  createdAt: {
+    type: Date,
   }
 });
 
