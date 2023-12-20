@@ -5,14 +5,14 @@ import { unstable_noStore as noStore } from 'next/cache';
 
 import PostCard from "./PostCard";
 
-const PostCardList = ({ data, handleTagClick }) => {
+const PostCardList = ({ data, handleLike }) => {
   return (
     <div className='mt-16 post_layout'>
       {data.map((post) => (
         <PostCard
           key={post._id}
           post={post}
-          handleTagClick={handleTagClick}
+          handleLike={() => handleLike(post._id)}
         />
       ))}
     </div>
@@ -47,7 +47,29 @@ const Feed = () => {
         regex.test(item.post)
     );
   };
+  const handleLike = async (postId) => {
+    // Find the index of the post being liked
+    const postIndex = allPosts.findIndex(post => post._id === postId);
+    if (postIndex === -1) return; // Post not found
 
+    try {
+      const response = await fetch(`/api/post/${postId}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          updateType: 'like',
+        }),
+      });
+
+      if (response.ok) {
+        // Increment like count in the local state
+        setAllPosts(currentPosts => currentPosts.map((post, index) => 
+          index === postIndex ? { ...post, likes: post.likes + 1 } : post
+        ));
+      }
+    } catch (error) {
+      console.error("Error liking post:", error);
+    }
+  };
   const handleSearchChange = (e) => {
     clearTimeout(searchTimeout);
     setSearchText(e.target.value);
@@ -79,10 +101,10 @@ const Feed = () => {
       {/* All Posts */}
       {searchText ? (
         <PostCardList
-          data={searchedResults}
+          data={searchedResults}  handleLike={handleLike}
         />
       ) : (
-        <PostCardList data={allPosts} />
+        <PostCardList data={allPosts}  handleLike={handleLike} />
       )}
     </section>
   );

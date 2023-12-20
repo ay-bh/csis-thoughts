@@ -37,6 +37,7 @@ const UpdatePost = () => {
         method: "PATCH",
         body: JSON.stringify({
           post: post.post,
+          updateType:'content'
         }),
       });
 

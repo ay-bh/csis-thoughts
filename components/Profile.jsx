@@ -1,6 +1,6 @@
 import PostCard from "./PostCard";
 
-const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
+const Profile = ({ name, desc, data, handleEdit, handleDelete, handleLike }) => {
   return (
     <section className='w-full'>
       <h2 className='head_text text-left'>

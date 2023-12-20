@@ -29,7 +29,7 @@ export const PATCH = async (request, { params }) => {
         return new Response("Unauthorized", { status: 401 });
     }
 
-    const { post } = await request.json();
+    const { post,updateType } = await request.json();
 
     try {
         await connectToDB();
@@ -38,8 +38,13 @@ export const PATCH = async (request, { params }) => {
         if (!existingPost) {
             return new Response("Post not found", { status: 404 });
         }
-
-        existingPost.post = post;
+        if (updateType === 'like') {
+            existingPost.likes += 1;
+        } else if (updateType === 'content') {
+            existingPost.post = post;
+        } else {
+            return new Response("Invalid update type", { status: 400 });
+        }
         await existingPost.save();
 
         return new Response("Successfully updated the Posts", { status: 200 });
