@@ -32,20 +32,28 @@ const Feed = () => {
     noStore();
     const response = await fetch("/api/post");
     const data = await response.json();
-
-    setAllPosts(data);
+  
+    // Set all other fields to "" for posts where anon is true
+    const sanitizedData = data.map((post) => ({
+      ...post,
+      creator: post.anon ? null : post.creator, // Set creator to null if anon is true (assuming null is an appropriate value)
+      // Add more fields here if needed
+    }));
+  
+    setAllPosts(sanitizedData);
   };
 
   useEffect(() => {
     fetchPosts();
   }, []);
+  
 
   const filterPosts = (searchtext) => {
     const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
     return allPosts.filter(
       (item) =>
-        regex.test(item.creator.username) ||
-        regex.test(item.post)
+        regex.test(item.creator?.username) ||
+        regex.test(item?.post)
     );
   };
   const handleLike = async (postId) => {
