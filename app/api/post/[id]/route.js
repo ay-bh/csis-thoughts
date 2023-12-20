@@ -25,9 +25,6 @@ export const GET = async (request, { params }) => {
 
 export const PATCH = async (request, { params }) => {
     const session = await getServerSession(nextAuthHandler);
-    if (!session) {
-        return new Response("Unauthorized", { status: 401 });
-    }
 
     const { post,updateType } = await request.json();
 
@@ -41,6 +38,9 @@ export const PATCH = async (request, { params }) => {
         if (updateType === 'like') {
             existingPost.likes += 1;
         } else if (updateType === 'content') {
+            if (!session) {
+                return new Response("Unauthorized", { status: 401 });
+            }
             existingPost.post = post;
         } else {
             return new Response("Invalid update type", { status: 400 });

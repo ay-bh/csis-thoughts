@@ -25,7 +25,7 @@ const UserProfile = ({ params }) => {
   return (
     <Profile
       name={userName}
-      desc={`Senior's Parting Words`}
+      desc={""}
       data={userPosts}
     />
   );
