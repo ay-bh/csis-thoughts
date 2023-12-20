@@ -1,13 +1,18 @@
 import "@styles/globals.css";
-import { Children } from "react";
 import Nav from "@components/Nav";
 import Provider from "@components/Provider";
+import { initGA, logPageView } from "../utils/analytics";
+
 export const metadata = {
 	title: "Thoughts",
 	description: "Seniors last words bits goa",
 };
 
 const layout = ({ children }) => {
+	useEffect(() => {
+		initGA();
+		logPageView();
+	}, []);
 	return (
 		<html>
 			<body>
@@ -25,5 +30,5 @@ const layout = ({ children }) => {
 	);
 };
 
-export const fetchCache = 'force-no-store'
+export const fetchCache = "force-no-store";
 export default layout;
