@@ -1,5 +1,6 @@
 import "@styles/globals.css";
 import Nav from "@components/Nav";
+import Footer from "@components/Footer";
 import Provider from "@components/Provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
@@ -7,9 +8,9 @@ import Script from "next/script";
 export const metadata = {
 	title: "Thoughts",
 	description: "A memory wall for graduating seniors",
-	icons:{
-		icon:'/public/favicon.ico'
-	  }
+	icons: {
+		icon: "/public/favicon.ico",
+	},
 };
 
 const layout = ({ children }) => {
@@ -36,6 +37,7 @@ const layout = ({ children }) => {
 					<main className="app">
 						<Nav />
 						{children}
+						<Footer/>
 					</main>
 				</Provider>
 				<SpeedInsights />
