@@ -5,7 +5,6 @@ const UserSchema = new Schema({
     type: String,
     unique: [true, 'Email already exists!'],
     required: [true, 'Email is required!'],
-    match: [/^f20(1[0-9]|20)[0-9]{4}@goa\.bits-pilani\.ac\.in$/, 'Please fill a valid BITS email address (Only graduating batch allowed)'],
   },
   username: {
     type: String,
