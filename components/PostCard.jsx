@@ -104,7 +104,9 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 							{post.anon ? "Anonymous" : post.creator?.username}
 						</h3>
 						<p className="font-inter text-[0.65rem] text-gray-400">
-							{post.anon ? "Senior" : post.creator?.email}
+							{post.anon
+								? "Senior"
+								: `${post.creator?.email.match(/f(\d{4})/)?.[1]} Batch`}
 						</p>
 					</div>
 				</div>

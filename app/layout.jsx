@@ -7,7 +7,7 @@ import Script from "next/script";
 
 export const metadata = {
 	title: "Thoughts",
-	description: "A memory wall for graduating seniors",
+	description: "A platform for BITS Goa Seniors",
 	icons: {
 		icon: "/public/favicon.ico",
 	},

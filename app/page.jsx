@@ -8,7 +8,7 @@ const Home = () => {
 			<span className="blue_gradient text-center"> Memoir</span>
 			</h1>
 			<p className="desc text-center">
-			A memory wall for Graduating Seniors to share their reflections as they depart and embark on the next chapter of their lives
+			A memory wall dedicated to seniors to share their reflections and reminisce their college days
 			</p>
 			<Feed/>
 		</section>
