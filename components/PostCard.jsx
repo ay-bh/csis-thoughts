@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import { useLocalStorage } from "usehooks-ts";
 
 const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 	const { data: session } = useSession();
@@ -11,35 +12,39 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 	const router = useRouter();
 
 	const [copied, setCopied] = useState("");
-	const [disabledLikes, setDisabledLikes] = useState({});
+	const [disabledLikes, setDisabledLikes] = useLocalStorage(
+		"disabledLikes",
+		{}
+	);
 
 	const handleProfileClick = () => {
-		if(post.anon) return;
+		if (post.anon) return;
 		if (post.creator._id === session?.user.id) return router.push("/profile");
 
 		router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
 	};
 
 	const handleCopy = () => {
-		const contentToCopy = `${post.post}\n\nBy ${(post.anon)?"Anonymous":(post.creator?.username)}`;
+		const contentToCopy = `${post.post}\n\nBy ${
+			post.anon ? "Anonymous" : post.creator?.username
+		}`;
 		setCopied(contentToCopy);
 		navigator.clipboard.writeText(contentToCopy);
 		setTimeout(() => setCopied(false), 3000);
 	};
 
-	const handleLocalLike = async (postId) => {
+	const handleLocalLike = (postId) => {
 		if (disabledLikes[postId]) return;
 		if (pathName.includes("/profile")) return;
+		setDisabledLikes((prevDisabledLikes) => ({
+			...prevDisabledLikes,
+			[postId]: true,
+		}));
+		postLike(postId);
+	};
 
-		setDisabledLikes({ ...disabledLikes, [postId]: true });
+	const postLike = async (postId) => {
 		await handleLike(postId);
-
-		setTimeout(() => {
-			setDisabledLikes((currentDisabledLikes) => ({
-				...currentDisabledLikes,
-				[postId]: false,
-			}));
-		}, 240000); // 1 minute
 	};
 
 	const formatDate = (isoTimestamp) => {
@@ -82,26 +87,33 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 					className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
 					onClick={handleProfileClick}
 				>
-					{(post.anon)?"":<Image
-						src={post.creator?.image}
-						alt="user_image"
-						width={40}
-						height={40}
-						className="rounded-full object-contain"
-					/>}
+					{post.anon ? (
+						""
+					) : (
+						<Image
+							src={post.creator?.image}
+							alt="user_image"
+							width={40}
+							height={40}
+							className="rounded-full object-contain"
+						/>
+					)}
 
 					<div className="flex flex-col">
 						<h3 className="font-satoshi text-sm font-semibold text-gray-300">
-							{(post.anon)?"Anonymous":post.creator?.username}
+							{post.anon ? "Anonymous" : post.creator?.username}
 						</h3>
 						<p className="font-inter text-[0.65rem] text-gray-400">
-							{(post.anon)?"Senior":post.creator?.email}
+							{post.anon ? "Senior" : post.creator?.email}
 						</p>
 					</div>
 				</div>
 
 				<div className="copy_btn" onClick={handleCopy}>
-					{copied === `${post.post}\n\nBy ${(post.anon)?"Anonymous":(post.creator?.username)}` ? (
+					{copied ===
+					`${post.post}\n\nBy ${
+						post.anon ? "Anonymous" : post.creator?.username
+					}` ? (
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
@@ -139,17 +151,17 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 			<div>
 				<p className="my-4 font-satoshi text-sm text-gray-200">
 					{isReadMore ? post.post.slice(0, 600) : post.post}
-          {isReadMore && post.post.length>600?<span>...</span>:""}
-          
+					{isReadMore && post.post.length > 600 ? <span>...</span> : ""}
 				</p>
-				{post.post.length > 600 && (<>
-					<button
-						onClick={toggleReadMore}
-						className="text-blue-300 text-sm hover:text-blue-400 transition duration-300"
-					>
-						{isReadMore ? "Read More" : "Read Less"}
-					</button>
-          </>
+				{post.post.length > 600 && (
+					<>
+						<button
+							onClick={toggleReadMore}
+							className="text-blue-300 text-sm hover:text-blue-400 transition duration-300"
+						>
+							{isReadMore ? "Read More" : "Read Less"}
+						</button>
+					</>
 				)}
 			</div>
 			<div className="flex justify-between items-center my-4 text-xs text-gray-400">
