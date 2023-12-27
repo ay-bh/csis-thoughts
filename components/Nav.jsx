@@ -81,7 +81,7 @@ const Nav = () => {
 								xmlns="http://www.w3.org/2000/svg"
 								viewBox="0 0 24 24"
 								fill="currentColor"
-								dataSlot="icon"
+								dataslot="icon"
 								className="w-9 h-9 mr-4 text-slate-400"
 							>
 								<path

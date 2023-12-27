@@ -35,15 +35,7 @@ const Feed = () => {
 		noStore();
 		const response = await fetch("/api/post");
 		const data = await response.json();
-
-		// Set all other fields to "" for posts where anon is true
-		const sanitizedData = data.map((post) => ({
-			...post,
-			creator: post.anon ? null : post.creator, // Set creator to null if anon is true (assuming null is an appropriate value)
-			// Add more fields here if needed
-		}));
-
-		setAllPosts(sanitizedData);
+		setAllPosts(data);
 		setLoading(false);
 	};
 

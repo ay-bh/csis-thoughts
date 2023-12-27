@@ -13,7 +13,7 @@ const Footer = () => {
 					viewBox="0 0 24 24"
 					strokeWidth={1.5}
 					stroke="currentColor"
-					dataSlot="icon"
+					dataslot="icon"
 					className="w-4 ml-1 mt-1 h-4"
 				>
 					<path

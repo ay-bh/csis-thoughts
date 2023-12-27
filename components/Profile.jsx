@@ -9,7 +9,7 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete, handleLike }) => 
       <p className='desc text-left'>{desc}</p>
 
       <div className='mt-10 post_layout'>
-        {data.map((post) => (
+        {data?.map((post) => (
           <div className="mb-5">
           <PostCard
             key={post._id}
