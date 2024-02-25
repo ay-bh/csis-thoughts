@@ -32,7 +32,7 @@ const Feed = () => {
 	const [loading, setLoading] = useState(true);
 
 	const fetchPosts = async () => {
-		noStore();
+		// noStore();
 		const response = await fetch("/api/post");
 		const data = await response.json();
 		setAllPosts(data);

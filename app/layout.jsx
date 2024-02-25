@@ -46,5 +46,5 @@ const layout = ({ children }) => {
 	);
 };
 
-export const fetchCache = "force-no-store";
+// export const fetchCache = "force-no-store";
 export default layout;
