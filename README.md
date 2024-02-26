@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🤖 Thoughts
 
-## Getting Started
+**csis-thoughts** is a wisdom-sharing platform designed specifically for the graduating batch of seniors and alumni of Department of Computer Science & Information Systems - BITS Pilani, Goa. It offers a unique space for individuals to share their final messages, reflections, and thoughts about their college journey, fostering a community of support and insight.
 
-First, run the development server:
+## ⚙️ Tech Stack
+
+- **Next.js:** For building a server-side rendered React application.
+- **MongoDB:** A NoSQL database for storing user messages and profiles.
+- **NextAuth:** For secure Google authentication.
+- **TailwindCSS:** For styling with modern design principles.
+
+## 🔋 Features
+
+- 💌 **Read and Share Messages:** Enables seniors to share their college experiences.
+- ✍️ **Edit and Delete Posts:** Offers flexibility to manage posts.
+- 🧑‍🤝‍🧑 **Profile Pages:** Showcases individual messages through dedicated profile pages.
+- 🔍 **Explore Profiles:** Discover and connect by viewing the posts of others.
+- 🕵️ **Anonymous Posting:** Protects user identity while allowing post management.
+- 📋 **Copy to Clipboard:** Simplifies sharing with easy copy functionality.
+- 🔒 **Secure Authentication:** Utilises NextAuth with a whitelist for reliable Google login.
+
+## 🤸 Quick Start
+
+Get up and running with **csis-thoughts** in just a few steps!
+
+### Prerequisites
+
+Ensure you have these installed:
+- Git
+- Node.js
+- npm (Node Package Manager)
+
+### Cloning the Repository
+
+```bash
+git clone https://github.com/ay-bh/csis-thoughts.git
+cd csis-thoughts
+```
+
+### Installation
+
+Install the necessary dependencies:
+
+```bash
+npm install
+```
+
+### Set Up Environment Variables
+
+Create a `.env` file in the project root with the following:
+
+```plaintext
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_URL_INTERNAL=http://localhost:3000
+NEXTAUTH_SECRET=your_secret
+GOOGLE_ID=your_google_id
+GOOGLE_CLIENT_SECRET=your_client_secret
+MONGODB_URI=your_mongodb_uri
+```
+
+Replace placeholders with your actual credentials, obtainable from Google Cloud Console, your Auth provider, and MongoDB.
+
+### Running the Project
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Visit `http://localhost:3000` in your browser to explore **csis-thoughts**.
