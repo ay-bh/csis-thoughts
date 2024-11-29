@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { unstable_noStore as noStore } from "next/cache";
 
 import PostCard from "./PostCard";
 
@@ -32,7 +31,6 @@ const Feed = () => {
 	const [loading, setLoading] = useState(true);
 
 	const fetchPosts = async () => {
-		// noStore();
 		const response = await fetch("/api/post");
 		const data = await response.json();
 		setAllPosts(data);

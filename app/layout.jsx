@@ -5,6 +5,8 @@ import Provider from "@components/Provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
 	title: "Thoughts",
 	description: "A platform for BITS Goa Seniors",
