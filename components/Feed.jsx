@@ -32,14 +32,37 @@ const Feed = () => {
 	const [loading, setLoading] = useState(true);
 
 	const fetchPosts = async () => {
-		const response = await fetch("/api/post");
-		const data = await response.json();
-		setAllPosts(data);
-		setLoading(false);
+		try {
+			const response = await fetch("/api/post");
+			const data = await response.json();
+			setAllPosts(data);
+			setLoading(false);
+		} catch (error) {
+			console.error("Error fetching posts:", error);
+			setLoading(false);
+		}
 	};
 
 	useEffect(() => {
 		fetchPosts();
+		
+		let intervalId = null;
+		
+		const handleVisibilityChange = () => {
+			if (document.hidden) {
+				clearInterval(intervalId);
+			} else {
+				intervalId = setInterval(fetchPosts, 10000);
+			}
+		};
+
+		handleVisibilityChange();
+		document.addEventListener('visibilitychange', handleVisibilityChange);
+		
+		return () => {
+			clearInterval(intervalId);
+			document.removeEventListener('visibilitychange', handleVisibilityChange);
+		};
 	}, []);
 
 	const filterPosts = (searchtext) => {
