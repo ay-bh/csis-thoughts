@@ -26,6 +26,11 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
 						required
 						className="form_textarea"
 					/>
+					{post.post.length < 200 && (
+						<span className="text-gray-400 text-sm">
+							{200 - post.post.length} more characters needed
+						</span>
+					)}
 				</label>
 
 				<div className="flex-end mx-3 mb-5 gap-4">
@@ -45,8 +50,8 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
 
 					<button
 						type="submit"
-						disabled={submitting}
-						className="px-5 py-1.5 text-sm bg-zinc-700 rounded text-white"
+						disabled={submitting || post.post.length < 200}
+						className="px-5 py-1.5 text-sm bg-zinc-700 rounded text-white disabled:opacity-50"
 					>
 						{submitting ? `Sending...` : type}
 					</button>
