@@ -6,7 +6,7 @@ const Footer = () => {
 	return (
 		<div className="text-gray-400 flex text-sm text-center mt-4 mb-6">
 			<span className="flex">
-				Developed by&nbsp;<Link href="https://www.linkedin.com/in/aybh/" passHref target="_blank" className="underline">Ayush Bhardwaj</Link>
+				Developed by&nbsp;<Link href="https://github.com/ay-bh" passHref target="_blank" className="underline">Ayush Bhardwaj</Link>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
