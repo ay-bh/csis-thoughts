@@ -104,9 +104,16 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 							{post.anon ? "Anonymous" : post.creator?.username}
 						</h3>
 						<p className="font-inter text-[0.65rem] text-gray-400">
-							{post.anon
-								? "Senior"
-								: `${post.creator?.email.match(/f(\d{4})/)?.[1]} Batch`}
+							{post.anon 
+								? "Senior" 
+								: `${post.creator?.email.match(/f(\d{4})/)?.[1]} Batch • ${
+									post.creator?.email
+										.match(/@([^.]+)/)?.[1]
+										?.charAt(0)
+										?.toUpperCase()
+									+ post.creator?.email.match(/@([^.]+)/)?.[1]?.slice(1)
+									|| ''
+								}`}
 						</p>
 					</div>
 				</div>
@@ -151,7 +158,7 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 				</div>
 			</div>
 			<div>
-				<p className="my-4 font-satoshi text-sm text-gray-200">
+				<p className="my-4 font-satoshi text-sm text-gray-200 whitespace-pre-wrap">
 					{isReadMore ? post.post.slice(0, 600) : post.post}
 					{isReadMore && post.post.length > 600 ? <span>...</span> : ""}
 				</p>
