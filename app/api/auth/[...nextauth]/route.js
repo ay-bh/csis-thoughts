@@ -27,9 +27,19 @@ const handler = NextAuth({
 				await connectToDB();
 		
 				const emailToCheck = profile.email.toLowerCase();
-				const isWhitelisted = await Whitelist.exists({ email: emailToCheck });
-		
-				if (emailToCheck.endsWith(alumni) || isWhitelisted) {
+				
+				// Check if email matches allowed patterns
+				const isAllowedBatch = (
+					emailToCheck.match(/^f2020.*@.*bits-pilani\.ac\.in/) ||
+					emailToCheck.match(/^f2021.*@.*bits-pilani\.ac\.in/) ||
+					emailToCheck.match(/^h2023.*@.*bits-pilani\.ac\.in/) ||
+					emailToCheck.includes('@alumni.bits-pilani.ac.in')
+				);
+
+				// Comment out whitelist check temporarily
+				// const isWhitelisted = await Whitelist.exists({ email: emailToCheck });
+				
+				if (isAllowedBatch) {
 					const userExists = await User.findOne({ email: emailToCheck });
 		
 					if (!userExists) {
