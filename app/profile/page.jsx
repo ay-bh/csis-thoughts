@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import Profile from "@components/Profile";
+import { handleLike as handleLikeUtil } from '@utils/handleLike';
 
 const MyProfile = () => {
   const router = useRouter();
@@ -46,6 +47,8 @@ const MyProfile = () => {
     }
   };
 
+  const handleLike = (postId) => handleLikeUtil(postId, myPosts, setMyPosts);
+
   return (
     <Profile
       name='Your'
@@ -53,6 +56,7 @@ const MyProfile = () => {
       data={myPosts}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
+      handleLike={handleLike}
     />
   );
 };

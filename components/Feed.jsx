@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 
 import PostCard from "./PostCard";
+import { handleLike as handleLikeUtil } from '@utils/handleLike';
 
 const PostCardList = ({ data, handleLike }) => {
 	const sortedData = data.sort(
@@ -47,31 +48,7 @@ const Feed = () => {
 			(item) => regex.test(item.creator?.username) || regex.test(item?.post)
 		);
 	};
-	const handleLike = async (postId) => {
-		// Find the index of the post being liked
-		const postIndex = allPosts.findIndex((post) => post._id === postId);
-		if (postIndex === -1) return; // Post not found
-
-		try {
-			const response = await fetch(`/api/post/${postId}`, {
-				method: "PATCH",
-				body: JSON.stringify({
-					updateType: "like",
-				}),
-			});
-
-			if (response.ok) {
-				// Increment like count in the local state
-				setAllPosts((currentPosts) =>
-					currentPosts.map((post, index) =>
-						index === postIndex ? { ...post, likes: post.likes + 1 } : post
-					)
-				);
-			}
-		} catch (error) {
-			console.error("Error liking post:", error);
-		}
-	};
+	const handleLike = (postId) => handleLikeUtil(postId, allPosts, setAllPosts);
 	const handleSearchChange = (e) => {
 		clearTimeout(searchTimeout);
 		setSearchText(e.target.value);

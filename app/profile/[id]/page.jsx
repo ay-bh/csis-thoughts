@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import Profile from "@components/Profile";
+import { handleLike as handleLikeUtil } from '@utils/handleLike';
 
 const UserProfile = ({ params }) => {
   const searchParams = useSearchParams();
@@ -23,11 +24,14 @@ const UserProfile = ({ params }) => {
     if (params?.id) fetchPosts();
   }, [params.id]);
 
+  const handleLike = (postId) => handleLikeUtil(postId, userPosts, setUserPosts);
+
   return (
     <Profile
       name={userName}
       desc={""}
       data={userPosts}
+      handleLike={handleLike}
     />
   );
 };

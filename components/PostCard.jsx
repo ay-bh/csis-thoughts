@@ -35,7 +35,6 @@ const PostCard = ({ post, handleEdit, handleDelete, handleLike }) => {
 
 	const handleLocalLike = (postId) => {
 		if (disabledLikes[postId]) return;
-		if (pathName.includes("/profile")) return;
 		setDisabledLikes((prevDisabledLikes) => ({
 			...prevDisabledLikes,
 			[postId]: true,

@@ -10,13 +10,13 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete, handleLike }) => 
 
       <div className='mt-10 post_layout'>
         {data?.map((post) => (
-          <div className="mb-5">
-          <PostCard
-            key={post._id}
-            post={post}
-            handleEdit={() => handleEdit && handleEdit(post)}
-            handleDelete={() => handleDelete && handleDelete(post)}
-          />
+          <div className="mb-5" key={post._id}>
+            <PostCard
+              post={post}
+              handleEdit={() => handleEdit && handleEdit(post)}
+              handleDelete={() => handleDelete && handleDelete(post)}
+              handleLike={() => handleLike && handleLike(post._id)}
+            />
           </div>
         ))}
       </div>
