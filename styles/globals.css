@@ -249,3 +249,9 @@
   font-weight: 300;
   letter-spacing: -0.02em;
 }
+
+.sort_select {
+  @apply bg-transparent text-gray-300 text-sm rounded-lg p-2 cursor-pointer
+  border border-gray-500 focus:outline-none focus:ring-0 focus:border-gray-400
+  hover:border-gray-400 transition-colors duration-200;
+}

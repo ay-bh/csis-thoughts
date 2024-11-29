@@ -5,10 +5,15 @@ import { useState, useEffect } from "react";
 import PostCard from "./PostCard";
 import { handleLike as handleLikeUtil } from '@utils/handleLike';
 
-const PostCardList = ({ data, handleLike }) => {
-	const sortedData = data.sort(
-		(a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-	);
+const PostCardList = ({ data, handleLike, sortOption }) => {
+	const sortedData = [...data].sort((a, b) => {
+		if (sortOption === 'likes') {
+			return b.likes - a.likes;
+		}
+		// Default to recent sorting
+		return new Date(b.createdAt) - new Date(a.createdAt);
+	});
+
 	return (
 		<div className="mt-16 post_layout">
 			{sortedData.map((post) => (
@@ -24,6 +29,7 @@ const PostCardList = ({ data, handleLike }) => {
 
 const Feed = () => {
 	const [allPosts, setAllPosts] = useState([]);
+	const [sortOption, setSortOption] = useState('recent');
 
 	// Search states
 	const [searchText, setSearchText] = useState("");
@@ -87,16 +93,29 @@ const Feed = () => {
 
 	return (
 		<section className="feed">
-			<form className="relative w-full flex-center">
-				<input
-					type="text"
-					placeholder="Search"
-					value={searchText}
-					onChange={handleSearchChange}
-					required
-					className="search_input peer"
-				/>
-			</form>
+			<div className="w-full flex-between">
+				<form className="relative w-full flex-center">
+					<input
+						type="text"
+						placeholder="Search"
+						value={searchText}
+						onChange={handleSearchChange}
+						required
+						className="search_input peer"
+					/>
+				</form>
+				<div className="ml-4 flex items-center">
+					<select
+						value={sortOption}
+						onChange={(e) => setSortOption(e.target.value)}
+						className="sort_select"
+					>
+						<option value="recent">Newest First</option>
+						<option value="likes">Most Popular</option>
+					</select>
+				</div>
+			</div>
+
 			{loading ? (
 				<>
 					<div
@@ -109,9 +128,17 @@ const Feed = () => {
 					</div>
 				</>
 			) : searchText ? (
-				<PostCardList data={searchedResults} handleLike={handleLike} />
+				<PostCardList
+					data={searchedResults}
+					handleLike={handleLike}
+					sortOption={sortOption}
+				/>
 			) : (
-				<PostCardList data={allPosts} handleLike={handleLike} />
+				<PostCardList
+					data={allPosts}
+					handleLike={handleLike}
+					sortOption={sortOption}
+				/>
 			)}
 		</section>
 	);
