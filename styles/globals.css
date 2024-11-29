@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -128,7 +129,7 @@
 }
 
 .desc {
-	@apply mt-5 text-lg text-gray-400 sm:text-xl max-w-2xl;
+	@apply mt-5 text-lg text-gray-300 sm:text-xl max-w-2xl;
 }
 
 .search_input {
@@ -163,7 +164,34 @@
 
 /* Nav Component */
 .logo_text {
-	@apply font-satoshi font-semibold text-[0.6rem] text-white tracking-wide;
+	@apply relative text-3xl tracking-tight text-white;
+	font-family: "Parkinsans", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 700;
+	font-style: normal;
+}
+
+.logo_text .chevron {
+	@apply text-blue-400 font-mono;
+}
+
+.logo_text:hover {
+	transform: scale(1.02);
+}
+
+.logo_text:hover .chevron {
+	@apply text-blue-300;
+	-webkit-text-fill-color: #93c5fd;
+}
+
+.logo_text:hover .thoughts {
+	background: linear-gradient(
+		135deg,
+		#93c5fd 0%,
+		#bfdbfe 100%
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 .dropdown {
@@ -193,4 +221,31 @@
 
 .flex-between {
 	@apply flex justify-between items-center;
+}
+
+.nav_text {
+  @apply relative text-2xl tracking-tight text-white;
+  font-family: "Doto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.nav_text .chevron {
+  @apply text-blue-400 font-mono;
+}
+
+.nav_text:hover {
+  @apply transform scale-105 transition-transform duration-200;
+}
+
+.nav_text:hover .chevron {
+  @apply text-blue-300 transition-colors duration-200;
+}
+
+.stories_text {
+  @apply bg-gradient-to-r from-blue-500 to-cyan-600 bg-clip-text text-transparent;
+  font-family: "Doto", sans-serif;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
